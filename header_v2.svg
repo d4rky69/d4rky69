@@ -1,119 +1,87 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="850" height="220" viewBox="0 0 850 220">
+<svg xmlns="http://www.w3.org/2000/svg" width="850" height="150" viewBox="0 0 850 150">
   <defs>
-    <!-- Deep Orange Glow Filter -->
-    <filter id="orange-glow" x="-20%" y="-20%" width="140%" height="140%">
-      <feGaussianBlur stdDeviation="3.5" result="blur" />
+    <!-- Gradient for the graph line (Cyan to Purple to Orange) -->
+    <linearGradient id="lineGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#00f2fe" />
+      <stop offset="50%" stop-color="#4facfe" />
+      <stop offset="100%" stop-color="#ff0844" />
+    </linearGradient>
+
+    <!-- Glow filter for the graph nodes -->
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="2.5" result="blur" />
       <feMerge>
         <feMergeNode in="blur" />
         <feMergeNode in="SourceGraphic" />
       </feMerge>
     </filter>
-
-    <!-- Network Line Gradient -->
-    <linearGradient id="net-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#ff7f50" stop-opacity="0.1"/>
-      <stop offset="50%" stop-color="#ff5722" stop-opacity="0.9"/>
-      <stop offset="100%" stop-color="#cc4400" stop-opacity="0.1"/>
-    </linearGradient>
   </defs>
 
   <style>
-    /* Typography */
-    .title { font: bold 56px 'Segoe UI', Arial, sans-serif; fill: #ffffff; letter-spacing: -2px; }
-    .dot { fill: #ff5722; animation: blink 1s step-end infinite; }
-    .subtitle { font: 14px 'Courier New', monospace; fill: #ff9800; letter-spacing: 1px; }
-    
-    /* Terminal Box Styling */
-    .term-box { fill: none; stroke: #ff5722; stroke-width: 1; stroke-opacity: 0.4; }
-    .term-text { font: 12px 'Courier New', monospace; fill: #8b949e; }
-    .term-highlight { fill: #ff5722; font-weight: bold; }
-
-    /* Animated Network Mesh */
-    .net-line {
-      stroke: url(#net-grad);
-      stroke-width: 1.5;
+    /* Animated graph line */
+    .graph-line {
+      stroke: url(#lineGrad);
+      stroke-width: 2.5;
       fill: none;
-      stroke-dasharray: 400;
-      stroke-dashoffset: 400;
-      animation: drawNet 4s ease-in-out infinite alternate;
+      stroke-linecap: round;
+      stroke-dasharray: 500;
+      stroke-dashoffset: 500;
+      animation: drawLine 3s ease-out forwards;
     }
     
-    /* Glowing Network Nodes */
-    .net-node {
-      fill: #ff5722;
-      filter: url(#orange-glow);
-      animation: pulseNode 2s infinite alternate;
+    @keyframes drawLine {
+      to { stroke-dashoffset: 0; }
     }
 
-    /* Equalizer Data Bars */
-    .bar {
-      fill: #ff5722;
-      opacity: 0.7;
-      animation: eq 1.5s ease-in-out infinite alternate;
+    /* Pulsating glow for the nodes */
+    .node {
+      fill: #ffffff;
+      filter: url(#glow);
+      animation: pulse 2s infinite alternate;
     }
 
-    /* Staggered Animations */
-    .d1 { animation-delay: 0.2s; } .d2 { animation-delay: 0.4s; }
-    .d3 { animation-delay: 0.6s; } .d4 { animation-delay: 0.8s; }
-    .d5 { animation-delay: 1.0s; } .d6 { animation-delay: 1.2s; }
+    .node:nth-child(1) { animation-delay: 0s; }
+    .node:nth-child(2) { animation-delay: 0.5s; }
+    .node:nth-child(3) { animation-delay: 1s; }
+    .node:nth-child(4) { animation-delay: 1.5s; }
 
-    /* Keyframes */
-    @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
-    @keyframes drawNet { 0% { stroke-dashoffset: 400; } 100% { stroke-dashoffset: 0; } }
-    @keyframes pulseNode { 0% { opacity: 0.4; r: 2; } 100% { opacity: 1; r: 4; } }
-    @keyframes eq { 0% { height: 5px; y: 175px; } 100% { height: 45px; y: 135px; } }
+    @keyframes pulse {
+      0% { opacity: 0.5; r: 2.5; }
+      100% { opacity: 1; r: 4; }
+    }
+
+    /* Blinking terminal cursor for the orange dot */
+    .cursor {
+      fill: #ff5722;
+      animation: blink 1s step-end infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
+    /* Text styling */
+    .title { font: bold 48px 'Segoe UI', Arial, sans-serif; fill: #ffffff; letter-spacing: -1px; }
+    .subtitle { font: 14px 'Courier New', monospace; fill: #8b949e; }
   </style>
 
-  <!-- LEFT SIDE: Identity & Terminal Box -->
+  <!-- LEFT SIDE: Text and Subtitle -->
   <text x="20" y="75" class="title">Shreyas</text>
-  <circle cx="230" cy="75" r="7" class="dot" />
+  
+  <!-- Blinking Orange Dot -->
+  <circle cx="215" cy="75" r="6" class="cursor" />
+  
+  <!-- Terminal-style Subtitle -->
   <text x="20" y="105" class="subtitle">systems architecture · artificial intelligence · full-stack</text>
 
-  <!-- Stylized Terminal Output Box -->
-  <rect x="20" y="130" width="310" height="65" rx="4" class="term-box" />
-  <text x="30" y="148" class="term-text">OPERATOR_ID: <tspan class="term-highlight">d4rky69</tspan></text>
-  <text x="30" y="166" class="term-text">STATUS: <tspan class="term-highlight">EXECUTING</tspan></text>
-  <text x="30" y="184" class="term-text">SECURITY PROTOCOLS: ACTIVE</text>
-
-  <!-- RIGHT SIDE: Complex Data Visualization -->
+  <!-- RIGHT SIDE: The Animated Graph -->
+  <!-- A slightly more dynamic, tech-focused path -->
+  <path class="graph-line" d="M 500,90 L 550,90 L 590,50 L 660,50 L 710,95 L 780,95" />
   
-  <!-- Layer 1: Animated Data Equalizer (Bottom Right) -->
-  <rect x="500" y="160" width="4" height="20" class="bar d1" />
-  <rect x="515" y="150" width="4" height="30" class="bar d3" />
-  <rect x="530" y="140" width="4" height="40" class="bar d5" />
-  <rect x="545" y="165" width="4" height="15" class="bar d2" />
-  <rect x="560" y="135" width="4" height="45" class="bar d6" />
-  <rect x="575" y="155" width="4" height="25" class="bar d4" />
-  <rect x="590" y="145" width="4" height="35" class="bar d1" />
-  <rect x="605" y="170" width="4" height="10" class="bar d3" />
-  <rect x="620" y="130" width="4" height="50" class="bar d5" />
-  <rect x="635" y="150" width="4" height="30" class="bar d2" />
-  <rect x="650" y="160" width="4" height="20" class="bar d4" />
-  <rect x="665" y="140" width="4" height="40" class="bar d6" />
-  <rect x="680" y="155" width="4" height="25" class="bar d1" />
-  <rect x="695" y="145" width="4" height="35" class="bar d3" />
-  <rect x="710" y="165" width="4" height="15" class="bar d5" />
-  <rect x="725" y="135" width="4" height="45" class="bar d2" />
-  <rect x="740" y="150" width="4" height="30" class="bar d4" />
-  <rect x="755" y="170" width="4" height="10" class="bar d6" />
-  <rect x="770" y="140" width="4" height="40" class="bar d1" />
-  <rect x="785" y="160" width="4" height="20" class="bar d3" />
-
-  <!-- Layer 2: Neural Network Mesh (Overlay) -->
-  <path class="net-line d1" d="M 450,100 L 520,40 L 600,70 L 680,20 L 760,80 L 820,50" />
-  <path class="net-line d3" d="M 480,150 L 520,40 L 650,110 L 760,80 L 790,130" />
-  <path class="net-line d5" d="M 520,40 L 650,110 L 680,20" />
-  <path class="net-line d2" d="M 600,70 L 650,110 L 720,160 L 790,130" />
-  <path class="net-line d4" d="M 650,110 L 720,160 L 820,50" />
-
-  <!-- Layer 3: Glowing Nodes at Intersections -->
-  <circle cx="450" cy="100" r="3" class="net-node d1" />
-  <circle cx="520" cy="40"  r="3" class="net-node d2" />
-  <circle cx="600" cy="70"  r="3" class="net-node d3" />
-  <circle cx="650" cy="110" r="3" class="net-node d4" />
-  <circle cx="680" cy="20"  r="3" class="net-node d5" />
-  <circle cx="720" cy="160" r="3" class="net-node d6" />
-  <circle cx="760" cy="80"  r="3" class="net-node d1" />
-  <circle cx="790" cy="130" r="3" class="net-node d2" />
-  <circle cx="820" cy="50"  r="3" class="net-node d3" />
+  <!-- Glowing, pulsating static nodes on the graph -->
+  <circle cx="550" cy="90" r="3" class="node" />
+  <circle cx="590" cy="50" r="3" class="node" />
+  <circle cx="660" cy="50" r="3" class="node" />
+  <circle cx="710" cy="95" r="3" class="node" />
 </svg>
