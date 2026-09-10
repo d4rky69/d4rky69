@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="850" height="150" viewBox="0 0 850 150">
+  <style>
+    /* The animation logic for the graph line */
+    .graph-line {
+      stroke: #4a5568; /* Gray color */
+      stroke-width: 2;
+      fill: none;
+      stroke-dasharray: 500;
+      stroke-dashoffset: 500;
+      animation: drawLine 3s ease-in-out forwards infinite alternate;
+    }
+    
+    @keyframes drawLine {
+      to {
+        stroke-dashoffset: 0;
+      }
+    }
+
+    /* Styling for the text */
+    .title { font: bold 48px sans-serif; fill: #ffffff; }
+    .subtitle { font: 14px monospace; fill: #a0aec0; }
+  </style>
+
+  <!-- LEFT SIDE: Text and Subtitle -->
+  <text x="20" y="70" class="title">Shreyas</text>
+  <!-- The Orange Dot -->
+  <circle cx="230" cy="70" r="6" fill="#ff5722" />
+  
+  <text x="20" y="100" class="subtitle">systems architecture · artificial intelligence · full-stack</text>
+
+  <!-- RIGHT SIDE: The Animated Graph -->
+  <!-- A simple zig-zag path -->
+  <path class="graph-line" d="M 550,80 L 600,80 L 630,50 L 700,50 L 750,90 L 800,90" />
+  
+  <!-- Static nodes on the graph -->
+  <circle cx="600" cy="80" r="3" fill="#ffffff" />
+  <circle cx="630" cy="50" r="3" fill="#ffffff" />
+  <circle cx="700" cy="50" r="3" fill="#ffffff" />
+</svg>
